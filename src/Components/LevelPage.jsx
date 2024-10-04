@@ -3,6 +3,8 @@ import InteractiveMap from './InteractiveMap';
 import Card from './Card';
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../App';
+import { Component } from 'lucide-react';
+import MapLevel from '../Levels/MapLevel';
 
 const levels = {
     1: {
@@ -83,6 +85,10 @@ const levels = {
           )
         },
       ]
+    },
+    3: {
+      title: "N2o Interactive Map",
+      component: MapLevel
     }
 };
   
@@ -111,34 +117,37 @@ const LevelPage = () => {
     };
   
     return (
-      <div className="h-screen text-white flex flex-col items-center justify-center space-y-8 p-4" style={{margin: "auto"}}>
-        <h2 className="text-2xl font-bold mb-8 text-center">Level {levelId}: {level.title}</h2>
-        <div className="flex justify-center items-start space-x-8 flex-wrap">
-          {level.cards.map((card, index) => (
-            <Card
-              key={index}
-              title={card.title}
-              description={card.description}
-              thumbnail={card.thumbnail}
-              onClick={() => handleCardClick(index)}
-              isExpanded={expandedCardIndex === index}
-              onClose={handleCardClose}
-            >
-              {card.content}
-            </Card>
-          ))}
-        </div>
-        {levels[nextLevelId] && (
-          <div className="text-center mt-8">
-            <Link
-              to={`/level/${nextLevelId}`}
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-            >
-              Next Level
-            </Link>
-          </div>
-        )}
+      <>
+      {level.cards && <div className="h-screen text-white flex flex-col items-center justify-center space-y-8 p-4" style={{margin: "auto"}}>
+      <h2 className="text-2xl font-bold mb-8 text-center">Level {levelId}: {level.title}</h2>
+      <div className="flex justify-center items-start space-x-8 flex-wrap">
+        {level.cards.map((card, index) => (
+          <Card
+            key={index}
+            title={card.title}
+            description={card.description}
+            thumbnail={card.thumbnail}
+            onClick={() => handleCardClick(index)}
+            isExpanded={expandedCardIndex === index}
+            onClose={handleCardClose}
+          >
+            {card.content}
+          </Card>
+        ))}
       </div>
+      {levels[nextLevelId] && (
+        <div className="text-center mt-8">
+          <Link
+            to={`/level/${nextLevelId}`}
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
+          >
+            Next Level
+          </Link>
+        </div>
+      )}
+    </div>}
+    {level.component && <level.component />}
+    </>
     );
   };
 

@@ -1,7 +1,9 @@
+import { N2OMap } from "../Components/Maps";
+
 const MapLevel = () => {
     return (
         <div>
-        <h1>Map Level</h1>
+        <N2OMap />
         </div>
     );
     }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 import Papa from "papaparse";
+import "./Maps.css";
 
 // N2OMap: N2O Emissions
 const N2OMap = () => {
@@ -38,14 +39,14 @@ const N2OMap = () => {
     };
 
     return (
-        <div>
+        <div className="map-container">
             <input
                 type="range"
                 min="2000"
                 max="2020"
                 value={year}
                 onChange={handleYearChange}
-            />
+                className="year-selector" />
             <Plot
                 data={[
                     {
@@ -55,17 +56,31 @@ const N2OMap = () => {
                         z: n2oEmissions,
                         zmax: 500,
                         zmin: 0,
-                        colorscale: "Greens",
-                        reversescale: true,
+                        colorscale: [
+                            [0, 'rgb(255,255,255)'],
+                            [0.2, 'rgb(220,237,200)'],
+                            [0.4, 'rgb(169,219,160)'],
+                            [0.6, 'rgb(109,192,134)'],
+                            [0.8, 'rgb(53,151,143)'],
+                            [1, 'rgb(1,102,94)']
+                        ],
+                        reversescale: false,
                         marker: {
                             line: {
-                                color: "rgb(180,180,180)",
-                                width: 0.5,
-                            },
+                                color: 'rgb(180,180,180)',
+                                width: 0.5
+                            }
                         },
                         colorbar: {
                             autotick: false,
-                            title: `N₂O Emissions in ${year}`,
+                            title: 'N₂O Emissions',
+                            tickformat: '.0f',
+                            thickness: 20,
+                            len: 0.9,
+                            bgcolor: 'rgba(255,255,255,0.8)',
+                            borderwidth: 1,
+                            bordercolor: '#ccc',
+                            outlinewidth: 0
                         },
                     },
                 ]}
@@ -73,11 +88,23 @@ const N2OMap = () => {
                     title: `Global N₂O Emissions in ${year}`,
                     geo: {
                         showframe: false,
-                        showcoastlines: false,
+                        showcoastlines: true,
                         projection: { type: "mercator" },
+                        coastlinecolor: 'rgb(200,200,200)',
+                        landcolor: 'rgb(250,250,250)',
+                        showland: true,
+                        showocean: true,
+                        oceancolor: 'rgb(220,240,255)',
                     },
                     width: 1000,
-                    height: 1000,
+                    height: 350,
+                    margin: { l: 0, r: 0, t: 0, b: 0 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                }}
+                config={{
+                    responsive: true,
+                    displayModeBar: false,
                 }}
             />
         </div>
