@@ -14,9 +14,9 @@ const Home = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if(page != 0) {
-      localStorage.setItem('level', level);
-      setLevel(level);
-      navigate(`/level/${level}`);
+      localStorage.setItem('level', page);
+      setLevel(page);
+      navigate(`/level/${page}`);
     }
   }, [page]);
   return (<AppContext.Provider value={{ level, setLevel, page, setPage }}>
@@ -25,7 +25,7 @@ const Home = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/level/:levelId" element={<LevelPage />} />
-        <Route path="/chart" element={<Chart gas={"co2"} />} />
+        <Route path="/chart" element={<Chart gas={"ch4"} />} />
         <Route path="/maps" element={<Maps />} />
       </Routes>
     </div>

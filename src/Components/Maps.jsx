@@ -1,68 +1,63 @@
 import React, { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 import Papa from "papaparse";
+import "./Maps.css";
 
-// Map1: N2O Emissions
-const Map1 = () => {
+const mapNames = {
+    "co2":"/co2_emissions.csv",
+    "n2o":"/natural_emissions.csv"
+}
+const Map = ({gas, max_year, title}) => {
     const [n2oEmissions, setN2oEmissions] = useState([]);
     const [allData, setAllData] = useState([]);
     const [countries, setCountries] = useState([]);
-    const [year, setYear] = useState(2020);
+    const [year, setYear] = useState(max_year);
+    const [dimensions, setDimensions] = useState({ width: 1000, height: 470 });
 
     useEffect(() => {
-        // Load and parse CSV data
-        Papa.parse("/natural_emissions.csv", {
+        const updateDimensions = () => {
+            const containerWidth = document.querySelector('.map-container').offsetWidth;
+            setDimensions({
+                width: containerWidth,
+                height: containerWidth * 0.5 // 2:1 aspect ratio
+            });
+        };
+
+        window.addEventListener('resize', updateDimensions);
+        updateDimensions();
+
+        return () => window.removeEventListener('resize', updateDimensions);
+    }, []);
+
+    useEffect(() => {
+        Papa.parse(mapNames[gas], {
             download: true,
             header: true,
             dynamicTyping: true,
             complete: (result) => {
-                const data = result.data;
+                const data = result.data.filter(row => row.year !== null);
                 setAllData(data);
-
-                const header = Object.keys(data[0]);
-                const _countries = header.slice(1); // Skip first empty header
-                console.log(_countries)
-                setCountries(_countries);
-
-                // Extract emissions for the initial year (2020)
+                const uniqueCountries = [...new Set(data.flatMap(Object.keys))].filter(key => key !== 'year');
+                setCountries(uniqueCountries);
                 setN2oEmissions(extractEmissionsByYear(data, 2020));
             },
         });
     }, []);
 
     const extractEmissionsByYear = (data, year) => {
-        // Log the data to understand its structure
-        console.log(year);
-
-        // Assuming the year is stored under the header 'Year', replace with the actual header name
-        const yearColumn = 'year'; // Replace with the actual header name for the year
-        console.log(data
-            .filter((row) => row[yearColumn] === year) // Check if year is correct
-            .map((row) => countries.map((country) => row[country] || 0)) // Add fallback for empty values
-            .flat())
-        return data
-            .filter((row) => row[yearColumn] === "" + year) // Check if year is correct
-            .map((row) => countries.map((country) => row[country] || 0)) // Add fallback for empty values
-            .flat(); // Flatten the result to ensure it's a flat array
+        const yearData = data.find(row => row.year === year);
+        return yearData ? countries.map(country => yearData[country] || 0) : [];
     };
 
-
     const handleYearChange = (event) => {
-        const selectedYear = event.target.value;
-        console.log(selectedYear)
+        const selectedYear = parseInt(event.target.value);
         setYear(selectedYear);
         setN2oEmissions(extractEmissionsByYear(allData, selectedYear));
     };
 
     return (
-        <div>
-            <input
-                type="range"
-                min="2000"
-                max="2022"
-                value={year}
-                onChange={handleYearChange}
-            />
+        <>
+        <div className="map-container">
             <Plot
                 data={[
                     {
@@ -70,120 +65,86 @@ const Map1 = () => {
                         locationmode: "country names",
                         locations: countries,
                         z: n2oEmissions,
-                        zmax: 500,
+                        zmax: 1100,
                         zmin: 0,
-                        colorscale: "Greens",
-                        reversescale: true,
-                        marker: {
-                            line: {
-                                color: "rgb(180,180,180)",
-                                width: 0.5,
-                            },
-                        },
-                        colorbar: {
-                            autotick: false,
-                            title: `N₂O Emissions in ${year}`,
-                        },
-                    },
-                ]}
-                layout={{
-                    title: `Global N₂O Emissions in ${year}`,
-                    geo: {
-                        showframe: false,
-                        showcoastlines: false,
-                        projection: { type: "mercator" },
-                    },
-                    width: 1000,
-                    height: 1000,
-                }}
-            />
-        </div>
-    );
-};
-
-
-// Map2: CO2 Emissions in the World
-const Map2 = () => {
-    const [co2Emissions, setCo2Emissions] = useState([]);
-    const [allData2, setAllData2] = useState([]);
-    const [year2, setYear2] = useState(2020);
-    const [countries, setCountries] = useState([]);
-
-    useEffect(() => {
-        // Load and parse CSV data
-        Papa.parse("/co2_emissions.csv", {
-            download: true,
-            header: true,
-            dynamicTyping: true,
-            complete: (result) => {
-                const data = result.data;
-                setAllData2(data);
-                setCo2Emissions(extractEmissionsByYear2(data, 2020));
-            },
-        });
-    }, []);
-
-    const extractEmissionsByYear2 = (data, year) => {
-        return data
-            .filter((row) => row[""] === "" + year)
-            .map((row) => countries.map((country) => row[country]));
-    };
-
-    const handleYearChange = (event) => {
-        const selectedYear = event.target.value;
-        setYear2(selectedYear);
-        setCo2Emissions(extractEmissionsByYear2(allData2, selectedYear));
-    };
-
-    return (
-        <div>
-            <input
-                type="range"
-                min="2000"
-                max="2020"
-                value={year2}
-                onChange={handleYearChange}
-            />
-            <Plot
-                data={[
-                    {
-                        type: "choropleth",
-                        locationmode: "country names",
-                        locations: countries,
-                        z: co2Emissions,
-                        zmin: 0,
-                        zmax: 5000,
-                        colorscale: "Reds",
+                        colorscale: [
+                            [0, 'rgb(255,255,255)'],
+                            [0.2, 'rgb(220,237,200)'],
+                            [0.4, 'rgb(169,219,160)'],
+                            [0.6, 'rgb(109,192,134)'],
+                            [0.8, 'rgb(53,151,143)'],
+                            [1, 'rgb(1,102,94)']
+                        ],
                         reversescale: false,
                         marker: {
                             line: {
-                                color: "rgb(180,180,180)",
-                                width: 0.5,
-                            },
+                                color: 'rgb(180,180,180)',
+                                width: 0.5
+                            }
                         },
                         colorbar: {
                             autotick: false,
-                            title: `CO₂ Emissions in ${year2}`,
+                            title: title,
+                            tickformat: '.0f',
+                            thickness: 20,
+                            len: 0.86,
+                            bgcolor: 'rgba(255,255,255,0.8)',
+                            borderwidth: 1,
+                            bordercolor: '#ccc',
+                            outlinewidth: 0,
                         },
-                    },
+                    }
                 ]}
                 layout={{
-                    title: `Global CO₂ Emissions in ${year2}`,
                     geo: {
                         showframe: false,
-                        showcoastlines: false,
-                        projection: { type: "mercator" },
+                        showcoastlines: true,
+                        projection: { 
+                            type: "equirectangular",
+                            scale: 1
+                        },
+                        coastlinecolor: 'rgb(200,200,200)',
+                        landcolor: 'rgb(250,250,250)',
+                        showland: true,
+                        showocean: true,
+                        oceancolor: 'rgb(220,240,255)',
+                        lonaxis: {
+                            range: [-180, 180]
+                        },
+                        lataxis: {
+                            range: [-90, 90]
+                        },
                     },
-                    width: 1000,
-                    height: 1000,
+                    width: dimensions.width,
+                    height: dimensions.height,
+                    margin: { l: 0, r: 0, t: 0, b: 0 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                }}
+                config={{
+                    responsive: true,
+                    displayModeBar: false,
+                    staticPlot: true,
                 }}
             />
+            
+                <div className="year-selector">
+                <input type="range"
+                    min="2000"
+                    max={max_year}
+                    value={year}
+                    onChange={handleYearChange}
+                    className="w-full year-slider" />
+                <span className="year-label">{year}</span>
+            </div>
         </div>
+        
+        </>
     );
 };
 
-// Map3: CO2 Emissions in the US
-const Map3 = () => {
+// USCO2Map: CO2 Emissions in the US
+const USCO2Map = () => {
     const [usEmissions, setUsEmissions] = useState([]);
     const [states, setStates] = useState([]);
     const stateAbbreviations = {
@@ -286,8 +247,10 @@ const Map3 = () => {
                         lakecolor: "rgb(255,255,255)",
                         showframe: false,
                         showcoastlines: false,
+                        
                     },
                 }}
+                
             />
         </div>
     );
@@ -298,17 +261,19 @@ const Maps = () => {
     return (
         <div>
             <h1>Global Emissions Maps</h1>
-            <div id="map1">
-                <Map1 />
+            <div id="N2OMap">
+                <N2OMap />
             </div>
-            <div id="map1">
-                <Map2 />
+            <div id="CO2Map">
+                <CO2Map />
             </div>
-            <div id="map3">
-                <Map3 />
+            <div id="USCO2Map">
+                <USCO2Map />
             </div>
         </div>
     );
 };
 
 export default Maps;
+
+export { Map, USCO2Map };

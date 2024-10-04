@@ -5,7 +5,7 @@ import Papa from "papaparse";
 
 const chartNames = {
     "co2":"/co2_annmean_mlo.csv",
-    "ch4":"ch4_annmean_gl.csv/"
+    "ch4":"/ch4_annmean_gl.csv"
 }
 
 const Chart = ({gas}) => {
@@ -22,15 +22,14 @@ const Chart = ({gas}) => {
         setData(result.data.map(d => ({ year: d.year, mean: d.mean })));
       },
     });
-    console.log(data);
   }, []);
 
   return (
-    <Paper elevation={3} style={{ padding: 20, margin: 20 }}>
+    <Paper elevation={3} style={{ padding: 20, marginTop: 20 }}>
       <Typography variant="h6" gutterBottom>
-        CH4 Mean Concentration Over Years
+        {gas.toUpperCase()} Mean Concentration Over Years
       </Typography>
-      <Box style={{ height: 500 }}>
+      <Box style={{ height: 300 }}>
         <LineChart
         dataset={data}
           xAxis={[
@@ -52,8 +51,7 @@ const Chart = ({gas}) => {
               showMark: true, // Show dots on the data points
             },
           ]}
-          width={800}
-          height={500}
+          width={300}
           margin={{ top: 20, right: 20, bottom: 50, left: 70 }}
         />
       </Box>
