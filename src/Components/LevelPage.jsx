@@ -1,7 +1,8 @@
 import { Link, useParams } from 'react-router-dom';
 import InteractiveMap from './InteractiveMap';
 import Card from './Card';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AppContext } from '../App';
 
 const levels = {
     1: {
@@ -10,7 +11,7 @@ const levels = {
         {
           title: 'Introduction to Climate Change',
           description: 'Learn about the basics of climate change and its impact on Earth.',
-          thumbnail: '/api/placeholder/300/200',
+          thumbnail: '/ice.jpeg',
           content: (
             <div>
               <p>Climate change refers to long-term shifts in temperatures and weather patterns. These shifts may be natural, such as through variations in the solar cycle. But since the 1800s, human activities have been the main driver of climate change, primarily due to burning fossil fuels like coal, oil and gas.</p>
@@ -21,7 +22,7 @@ const levels = {
         {
           title: 'Ice Age Animals',
           description: 'Discover the fascinating creatures that roamed Earth during the Ice Age.',
-          thumbnail: '/api/placeholder/300/200',
+          thumbnail: '/ice.jpeg',
           content: (
             <div>
               <p>The Ice Age, a period in Earth's history when large ice sheets covered vast areas of land, was home to a diverse array of fascinating animals, many of which are now extinct. Some of the most iconic Ice Age animals include:</p>
@@ -45,13 +46,13 @@ const levels = {
         {
           title: 'Interactive Climate Map',
           description: 'Explore how Earth\'s climate has changed over time with our interactive map.',
-          thumbnail: '/api/placeholder/300/200',
+          thumbnail: '/ice.jpeg',
           content: <InteractiveMap />
         },
         {
           title: 'Timeline of Earth\'s Climate',
           description: 'Journey through the major climate events in Earth\'s history.',
-          thumbnail: '/api/placeholder/300/200',
+          thumbnail: '/ice.jpeg',
           content: (
             <div>
               <p>Earth's climate has undergone significant changes throughout its 4.5-billion-year history. Here's a brief timeline of major climate events:</p>
@@ -74,11 +75,21 @@ const levels = {
 };
   
 const LevelPage = () => {
+    const { page, setPage } = useContext(AppContext);
+
     const { levelId } = useParams();
     const level = levels[levelId];
     const nextLevelId = parseInt(levelId) + 1;
     const [expandedCardIndex, setExpandedCardIndex] = useState(null);
   
+    useEffect(
+      ()=>{
+        if(levelId != page) {
+          setPage(levelId);
+        }
+      },[]
+    )
+    
     const handleCardClick = (index) => {
       setExpandedCardIndex(index);
     };
@@ -88,7 +99,7 @@ const LevelPage = () => {
     };
   
     return (
-      <div className="min-h-screen p-4">
+      <div className="h-screen text-white flex flex-col items-center justify-center space-y-8 p-4" style={{margin: "auto"}}>
         <h2 className="text-2xl font-bold mb-8 text-center">Level {levelId}: {level.title}</h2>
         <div className="flex justify-center items-start space-x-8 flex-wrap">
           {level.cards.map((card, index) => (
