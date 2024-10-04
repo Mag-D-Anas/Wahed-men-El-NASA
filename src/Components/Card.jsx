@@ -24,7 +24,7 @@ const Card = ({ title, description, thumbnail, onClick, isExpanded, onClose, chi
         )}
         {!isExpanded && (
           <button onClick={onClick} className="mt-2 text-white-500 hover:text-blue-600">
-            Learn More
+            Take a look!
           </button>
         )}
       </div>
