@@ -69,42 +69,10 @@ const levels = {
     ]
   },
   2: {
-    title: "Climate Through Time",
-    cards: [
-      {
-        title: 'Interactive Climate Map',
-        description: 'Explore how Earth\'s climate has changed over time with our interactive map.',
-        thumbnail: '/ice.jpeg',
-        content: <InteractiveMap />
-      },
-      {
-        title: 'Timeline of Earth\'s Climate',
-        description: 'Journey through the major climate events in Earth\'s history.',
-        thumbnail: '/ice.jpeg',
-        content: (
-          <div>
-            <p>Earth's climate has undergone significant changes throughout its 4.5-billion-year history. Here's a brief timeline of major climate events:</p>
-            <ul className="list-disc list-inside mt-4">
-              <li>4.6 billion years ago: Earth forms, initially very hot due to formation processes and radioactive decay.</li>
-              <li>4.0-3.8 billion years ago: The first atmosphere forms, mostly of hydrogen and helium.</li>
-              <li>2.4 billion years ago: The Great Oxygenation Event, where oxygen starts accumulating in the atmosphere.</li>
-              <li>720-635 million years ago: The "Snowball Earth" period, when the planet was covered almost entirely in ice.</li>
-              <li>56 million years ago: The Paleocene-Eocene Thermal Maximum, a period of rapid, intense warming.</li>
-              <li>2.6 million years ago - 11,700 years ago: The Pleistocene epoch, characterized by repeated glacial cycles.</li>
-              <li>11,700 years ago - present: The Holocene epoch, a period of relatively stable and warm climate.</li>
-              <li>1750 CE - present: The Anthropocene, marked by significant human impact on Earth's climate and ecosystems.</li>
-            </ul>
-            <p className="mt-4">This timeline showcases the dynamic nature of Earth's climate and the various factors that have influenced it over billions of years.</p>
-          </div>
-        )
-      },
-    ]
-  },
-  3: {
     title: "N2o Interactive Map",
     component: MapLevel3
   },
-  4: {
+  3: {
     title: "CO2 Interactive Map",
     component: MapLevel3B
   }
@@ -115,7 +83,7 @@ const LevelPage = () => {
 
   const { levelId } = useParams();
   const level = levels[levelId];
-  const nextLevelId = parseInt(levelId) + 1;
+  //const nextLevelId = parseInt(levelId) + 1;
   const [expandedCardIndex, setExpandedCardIndex] = useState(null);
 
   useEffect(

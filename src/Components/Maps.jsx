@@ -124,7 +124,7 @@ const Map = ({gas, max_year, title}) => {
                 config={{
                     responsive: true,
                     displayModeBar: false,
-                    staticPlot: true,
+                    staticPlot: false,
                 }}
             />
             
@@ -199,6 +199,22 @@ const USCO2Map = () => {
         "Wisconsin": "WI",
         "Wyoming": "WY"
     };
+    const [dimensions, setDimensions] = useState({ width: 1000, height: 470 });
+
+    useEffect(() => {
+        const updateDimensions = () => {
+            const containerWidth = document.querySelector('.map-container').offsetWidth;
+            setDimensions({
+                width: containerWidth,
+                height: containerWidth * 0.5 // 2:1 aspect ratio
+            });
+        };
+
+        window.addEventListener('resize', updateDimensions);
+        updateDimensions();
+
+        return () => window.removeEventListener('resize', updateDimensions);
+    }, []);
 
     useEffect(() => {
         Papa.parse("/US_emissions.csv", {
@@ -216,6 +232,7 @@ const USCO2Map = () => {
 
     return (
         <div>
+            <div className="map-container">
             <Plot
                 data={[
                     {
@@ -247,11 +264,31 @@ const USCO2Map = () => {
                         lakecolor: "rgb(255,255,255)",
                         showframe: false,
                         showcoastlines: false,
-                        
+                        coastlinecolor: 'rgb(200,200,200)',
+                        landcolor: 'rgb(250,250,250)',
+                        showland: true,
+                        showocean: true,
+                        oceancolor: 'rgb(220,240,255)',
+                        lonaxis: {
+                            range: [-180, 180]
+                        },
+                        lataxis: {
+                            range: [-90, 90]
+                        },
                     },
+                    width: dimensions.width,
+                    height: dimensions.height,
+                    margin: { l: 0, r: 0, t: 0, b: 0 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                }}
+
+                config={{
+                    displayModeBar: false,
                 }}
                 
             />
+            </div>
         </div>
     );
 };
