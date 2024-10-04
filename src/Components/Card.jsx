@@ -8,13 +8,13 @@ const Card = ({ title, description, thumbnail, onClick, isExpanded, onClose, chi
         : 'w-64 h-96 cursor-pointer hover:shadow-lg flex flex-col'
     }`}>
       {isExpanded && (
-        <button onClick={onClose} className="absolute top-2 right-2 p-1 bg-gray-200 rounded-full">
+        <button onClick={onClose} className="absolute top-2 right-2 p-1 rounded-full">
           <X size={24} />
         </button>
       )}
-      <img src={thumbnail} alt={title} className={`w-full ${isExpanded ? 'h-1/3 object-cover' : 'h-40 object-cover'}`} />
+      {!isExpanded && <img src={thumbnail} alt={title} className={`w-full h-40 object-cover`} />}
       <div className="p-4 flex flex-col flex-grow overflow-hidden">
-        <h3 className="text-lg font-semibold mb-2">{title}</h3>
+        <h3 className={`text-lg font-semibold mb-2 ${isExpanded && 'text-center'}`}>{title}</h3>
         {isExpanded ? (
           <div className="overflow-y-auto flex-grow">
             {children}
