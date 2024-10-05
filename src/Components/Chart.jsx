@@ -45,7 +45,7 @@ const Chart = ({ gas, height }) => {
     <div className="w-full">
       <Paper elevation={3} style={{ padding: 20, marginTop: 20 }}>
         <Typography variant="h6" gutterBottom>
-          {gas.toUpperCase()} Mean Concentration Over Years
+          {gas.toUpperCase().replace('2', '₂')} Mean Concentration Over Years
         </Typography>
         <Box ref={chartContainerRef} style={{ height: height || 340, width: "100%" }}>
           <LineChart

@@ -9,7 +9,7 @@ const Level2 = () => {
             <p className="text-sm text-gray-100 leading-5">A greenhouse gas that is the major component of natural gas and is associated with all hydrocarbon fuels. Significant human-caused methane emissions also occur as a result of some agriculture activities. Methane is also produced naturally where organic matter decays under anaerobic conditions, such as in wetlands.</p>
           </div>
           <div className="card hover:-translate-y-2">
-            <img src="/level2/co2.jpeg" alt="CO2" />
+            <img src="/level2/co2.jpeg" alt="CO₂" />
             <h2 className='font-bold'>Carbon dioxide (CO₂)</h2>
             <p className="text-sm text-gray-100 leading-5">A naturally occurring gas, CO₂ is also a byproduct of burning fossil fuels, of burning biomass, of land-use changes (LUCs) and of industrial processes. It is the main gas contributing to climate change.</p>
           </div>
