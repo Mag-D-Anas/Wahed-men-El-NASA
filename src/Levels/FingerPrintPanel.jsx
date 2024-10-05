@@ -8,22 +8,28 @@ const questions = [
   { id: 1, title: "1. Electric Bill", min: 0, max: 200 },
   { id: 2, title: "2. Gas Bill", min: 0, max: 100 },
   { id: 3, title: "3. Oil Bill", min: 0, max: 100 },
-  { id: 4, title: "4. Total yearly mileage on your car", min: 0, max: 5000 },
+  { id: 4, title: "4. Total yearly kilometers driven on your car", min: 0, max: 5000 },
   {
     id: 5,
-    title: "5. The number of hours of flights you've taken in the last year",
+    title: "5. The number of flights you've taken in the last year (4 hours or less)",
     min: 0,
-    max: 50,
+    max: 20,
   },
-  { id: 6, title: "6. Do you recycle newspaper" },
-  { id: 7, title: "7. Do you recycle aluminum and tin" },
+  {
+    id: 6,
+    title: "6. The number of hours of flights you've taken in the last year (More than 4 hours)",
+    min: 0,
+    max: 20,
+  },
+  { id: 7, title: "7. Do you recycle newspaper" },
+  { id: 8, title: "8. Do you recycle aluminum and tin" },
 ];
 
 function FingerPrintPanel() {
   const [currentId, setCurrentId] = useState(1);
-  const showNext = currentId < 7 ? true : false;
+  const showNext = currentId < 8 ? true : false;
   const [showPrev,setshowPrev] = useState(currentId > 1 ? true : false);
-  const showSubmit = currentId === 7 ? true : false;
+  const showSubmit = currentId === 8 ? true : false;
   const [answers, setAnswers] = useState([0, 0, 0, 0, 0, "No", "No"]);
   const [displayAnswer, setDisplayAnswer] = useState(false);
   const [result, setResult] = useState("");
@@ -37,7 +43,7 @@ function FingerPrintPanel() {
   function showQuestion() {
     const item = questions.filter((question) => question.id === currentId)[0];
     console.log(item.id);
-    if (item.id < 6) {
+    if (item.id < 7) {
       return (
         <Question
           key={item.id}
@@ -97,31 +103,30 @@ function FingerPrintPanel() {
     e.preventDefault();
     setshowPrev(false);
     setDisplayAnswer(true);
+
     let result = answers[0] * 105;
-    result += answers[1] * 105;
-    result += answers[2] * 113;
-    result += answers[3] * 79;
-    if (answers[4] <= 4) {
-      result += answers[4] * 1100;
-    } else {
-      result += answers[4] * 4400;
-    }
-    if (result[5] === "Yes") {
+
+    result += Number(answers[1]) * 105;
+    result += Number(answers[2]) * 113;
+    result += Number(answers[3]) * 0.622 * 0.79; // km to miles
+    result += Number(answers[4]) * 1100; 
+    result += Number(answers[5]) * 4400;
+    if (answers[6] === "No") {
       result += 184;
     }
-    if (result[6] === "Yes") {
+
+    if (answers[7] === "No") {
       result += 166;
     }
-    console.log(result);
 
-    if (result <= 15999) {
-      result = "low";
-    } else if (result <= 22000) {
-      result = "average";
+    if (result <= 17000) {
+      setResult("low");
+    } else if (result <= 27000) {
+      setResult("average");
     } else {
-      result = "high";
+      setResult("high");
     }
-    setResult(result);
+    
   }
 
   function showReset() {
@@ -145,8 +150,8 @@ function FingerPrintPanel() {
       <div className="btns">
         {showPrevButton()}
         {showNextButton()}
+        {!displayAnswer && showSubmitButton()}
       </div>
-      <div className="btns">{showSubmitButton()}</div>
       {displayAnswer && <h1>Your Result is: <span style={{color: result === "low" ? 'green' : result==='average'?'yellow':'red'}}>{result}</span></h1>}
       <div className="btns">{showReset()}</div>
     </div>

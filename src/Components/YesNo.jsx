@@ -23,6 +23,7 @@ function YesNo({ id, title, handleAnswer }) {
           value="Yes"
           checked={selectedOption === "Yes"}
           onChange={handleOptionChange}
+          className="m-2"
         />
         Yes
       </label>
@@ -32,6 +33,7 @@ function YesNo({ id, title, handleAnswer }) {
           value="No"
           checked={selectedOption === "No"}
           onChange={handleOptionChange}
+          className="m-2"
         />
         No
       </label>

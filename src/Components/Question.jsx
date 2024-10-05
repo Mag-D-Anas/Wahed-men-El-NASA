@@ -8,7 +8,7 @@ function Question({ id, title, min, max, handleAnswer }) {
     1: "$",
     2: "$",
     3: "$",
-    4: "KM",
+    4: "Km",
     5: "Hours",
   };
 
