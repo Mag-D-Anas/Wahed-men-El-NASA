@@ -1,6 +1,7 @@
 import MapLevel3 from '../Levels/MapLevel3';
 import MapLevel3B from '../Levels/MapLevel3B';
 import FingerPrintPanel from '../Levels/FingerPrintPanel';
+import Level2 from './Level2';
 
 const levels = {
     1: {
@@ -63,14 +64,19 @@ const levels = {
       ]
     },
     2: {
+      title: "Different epochs, Same threat",
+      
+      component: Level2,
+    },
+    3: {
       title: "N2o Interactive Map",
       component: MapLevel3
     },
-    3: {
+    4: {
       title: "CO2 Interactive Map",
       component: MapLevel3B
     },
-    4:{
+    5:{
       title:"Quiz",
       component:FingerPrintPanel
     }
