@@ -4,8 +4,6 @@ import LandingPage from './Components/LandingPage';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import LevelPage from './Components/LevelPage';
 import Navbar from './Components/Navbar';
-import Chart from './Components/Chart';
-import Maps from './Components/Maps';
 
 const AppContext = createContext();
 const Home = () => {
@@ -30,8 +28,6 @@ const Home = () => {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/level/:levelId" element={<LevelPage />} />
-        <Route path="/chart" element={<Chart gas={"ch4"} />} />
-        <Route path="/maps" element={<Maps />} />
       </Routes>
     </div>
   </AppContext.Provider>);

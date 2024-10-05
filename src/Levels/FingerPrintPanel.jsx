@@ -137,7 +137,7 @@ function FingerPrintPanel() {
   }
 
   return (
-    <div className="contianer">
+    <div className="contianer text-white">
       <div className="header">
         <h2 className="text-3xl">Let's Calculate Your CO2 Finger Print!</h2>
         {showQuestion()}
