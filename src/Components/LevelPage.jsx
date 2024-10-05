@@ -84,16 +84,6 @@ const LevelPage = () => {
             </Card>
           ))}
         </div>
-        {/* {levels[nextLevelId] && (
-          <div className="text-center mt-8">
-            <Link
-              to={`/level/${nextLevelId}`}
-              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-            >
-              Next Level
-            </Link>
-          </div>
-        )} */}
       </div>}
       {(level && level.component) && <level.component />}
     </>

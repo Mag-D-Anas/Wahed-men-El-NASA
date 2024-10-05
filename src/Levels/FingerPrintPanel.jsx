@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Question from "../Components/Question";
-import YesNo from "../Components/YesNo";
+import MCQ from "../Components/MCQ";
 import "./FingerPrintPanel.css";
 
 const questions = [
@@ -56,7 +56,7 @@ function FingerPrintPanel() {
       );
     }
     return (
-      <YesNo
+      <MCQ
         key={item.id}
         id={item.id}
         title={item.title}

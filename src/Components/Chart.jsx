@@ -27,14 +27,13 @@ const Chart = ({ gas, height }) => {
   }, [gas]);
 
   useEffect(() => {
-    // Set the chart width based on the container's width
     const handleResize = () => {
       if (chartContainerRef.current) {
         setChartWidth(chartContainerRef.current.offsetWidth);
       }
     };
 
-    handleResize(); // Set initial width
+    handleResize();
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -70,7 +69,7 @@ const Chart = ({ gas, height }) => {
                 showMark: true,
               },
             ]}
-            width={chartWidth} // Dynamically set the width
+            width={chartWidth}
             margin={{ top: 20, right: 20, bottom: 50, left: 70 }}
           />
         </Box>

@@ -7,7 +7,7 @@ const MapLevel = () => {
         <div>
         <div className="grid lg:grid-cols-2 lg:grid-rows-2 max-md:grid-cols-1 flex-wrap">
             <div className="col-span-1 max-md:grid-cols-1 m-1">
-                <Map gas={'co2'} max_year={2042} title={'CO₂ Emissions'} />
+                <Map gas={'co2'} max_year={2042} title={'CO₂ Emissions'} default_year={2022} />
             </div>
             <div className="w-full text-left m-1 flex flex-col items-center">
                 <div className="card space-y-3 w-auto center">

@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { X } from 'lucide-react';
 
 const Card = ({ title, description, thumbnail, onClick, isExpanded, onClose, children, isOpened }) => {

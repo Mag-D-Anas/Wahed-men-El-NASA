@@ -7,11 +7,11 @@ const mapNames = {
     "co2":"/co2_emissions.csv",
     "n2o":"/natural_emissions.csv"
 }
-const Map = ({gas, max_year, title}) => {
+const Map = ({gas, max_year, default_year, title}) => {
     const [Emissions, setEmissions] = useState([]);
     const [allData, setAllData] = useState([]);
     const [countries, setCountries] = useState([]);
-    const [year, setYear] = useState(max_year);
+    const [year, setYear] = useState(default_year);
     const [dimensions, setDimensions] = useState({ width: 1000, height: 470 });
     const [loaded, setLoaded] = useState(false);
     const [stat, setStat] = useState({mean: 0, max: 0, highestCountry: ''});

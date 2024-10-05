@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 
-function YesNo({ id, title, handleAnswer }) {
+function MCQ({ id, title, handleAnswer }) {
   const [selectedOption, setSelectedOption] = useState("No");
 
   const handleOptionChange = (event) => {
@@ -42,4 +42,4 @@ function YesNo({ id, title, handleAnswer }) {
   );
 }
 
-export default YesNo;
+export default MCQ;
