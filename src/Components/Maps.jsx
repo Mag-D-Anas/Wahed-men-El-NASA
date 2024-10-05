@@ -116,6 +116,14 @@ const Map = ({gas, max_year, title}) => {
                     }
                 ]}
                 layout={{
+                    title: {
+                        text: title,
+                        font: {
+                            size: 14,
+                        },
+                        x: 0.5,
+                        xanchor: 'center'
+                    },
                     geo: {
                         showframe: false,
                         showcoastlines: true,
@@ -137,7 +145,7 @@ const Map = ({gas, max_year, title}) => {
                     },
                     width: dimensions.width,
                     height: dimensions.height,
-                    margin: { l: 0, r: 0, t: 0, b: 0 },
+                    margin: { l: 0, r: 0, t: 45, b: 0 },
                     paper_bgcolor: 'rgba(0,0,0,0)',
                     plot_bgcolor: 'rgba(0,0,0,0)',
                 }}
@@ -286,7 +294,14 @@ const USCO2Map = () => {
                     },
                 ]}
                 layout={{
-                    title: "US States CO₂ Emissions",
+                    title: {
+                        text: "US States CO₂ Emissions (2021)",
+                        font: {
+                            size: 14,
+                        },
+                        x: 0.5,
+                        xanchor: 'center'
+                    },
                     geo: {
                         scope: "usa",
                         showlakes: true,
@@ -307,7 +322,7 @@ const USCO2Map = () => {
                     },
                     width: dimensions.width,
                     height: dimensions.height,
-                    margin: { l: 0, r: 0, t: 0, b: 0 },
+                    margin: { l: 0, r: 0, t: 45, b: 0 },
                     paper_bgcolor: 'rgba(0,0,0,0)',
                     plot_bgcolor: 'rgba(0,0,0,0)',
                 }}
