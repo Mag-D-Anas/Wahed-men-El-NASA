@@ -10,7 +10,7 @@ const Card = ({ title, description, thumbnail, onClick, isExpanded, onClose, chi
         : 'w-64 h-96 cursor-pointer hover:shadow-lg flex flex-col'
     }`}>
       {isExpanded && (
-        <button onClick={onClose} className="absolute top-2 right-2 p-1 rounded-full">
+        <button onClick={onClose} className="absolute top-2 right-2 p-1 rounded-full bg-black">
           <X size={24} />
         </button>
       )}
