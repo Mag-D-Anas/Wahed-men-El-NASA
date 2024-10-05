@@ -18,7 +18,6 @@ const LevelPage = () => {
 
   useEffect(
     () => {
-      console.log(levelId, lvl);
       if(levelId > lvl) {
         setPage(lvl);
       }
@@ -48,7 +47,6 @@ const LevelPage = () => {
     if(!level || !level.cards) return;
     if (Object.keys(cardsOpened).length === level.cards.length) {
       setAllCardsOpened(true);
-      console.log('All cards opened');
     }
   }, [cardsOpened]);
 

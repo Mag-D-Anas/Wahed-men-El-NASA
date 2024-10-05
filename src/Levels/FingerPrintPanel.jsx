@@ -42,7 +42,6 @@ function FingerPrintPanel() {
 
   function showQuestion() {
     const item = questions.filter((question) => question.id === currentId)[0];
-    console.log(item.id);
     if (item.id < 7) {
       return (
         <Question

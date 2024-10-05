@@ -60,7 +60,6 @@ const Map = ({gas, max_year, default_year, title}) => {
     }, [Emissions]);
 
     useEffect(() => {
-        console.log(loaded, year, Emissions);
         handleYearChange({target: {value: year}});
     }, [loaded]);
 
@@ -154,7 +153,6 @@ const Map = ({gas, max_year, default_year, title}) => {
                     displayModeBar: false,
                     staticPlot: false,
                 }}
-                onClick={(event) => console.log(event)}
             />}
             
                 <div className="year-selector flex flex-col">

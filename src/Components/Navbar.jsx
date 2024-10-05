@@ -8,7 +8,6 @@ import levels from '../Levels/levels';
 const Navbar = () => {
     const { level, page, setPage } = useContext(AppContext);
     const navigate = useNavigate();
-    console.log(page);
     const { requiresCards, allCardsOpened } = useContext(AppContext);
 
     
