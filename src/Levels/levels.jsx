@@ -64,20 +64,20 @@ const levels = {
       ]
     },
     2: {
-      title: "Different epochs, Same threat",
+      title: "The GHGs Powering Climate Change",
       
       component: Level2,
     },
     3: {
-      title: "N2o Interactive Map",
+      title: "Play with Nature",
       component: MapLevel3
     },
     4: {
-      title: "CO2 Interactive Map",
+      title: "Aggressor vs Victim",
       component: MapLevel3B
     },
     5:{
-      title:"Quiz",
+      title:"How Harmful are you?",
       component:FingerPrintPanel
     }
 };
