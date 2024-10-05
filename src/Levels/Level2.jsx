@@ -1,6 +1,6 @@
 const Level2 = () => {
     return (<div className="h-full text-white flex flex-col items-center justify-center space-y-4 p-4" style={{ margin: "auto" }}>
-        <h2 className="text-2xl font-bold mb-2 text-center">The GHGs Powering Climate Change</h2>
+        <h2 className="text-2xl font-bold mb-2 text-center">Level 2: The GHGs Powering Climate Change</h2>
         <p className="text-center text-sm text-gray-300 italic">Greenhouse gases (GHGs) are gases in the Earth's atmosphere that trap heat and contribute to the greenhouse effect, warming the planet. There are many greenhouse gases, but we focus most on 3 potent gases: Nitrous oxide (N₂O)-Methane (CH₄)-Carbon dioxide (CO₂). So Let’s start!</p>
         <div className="cards">
           <div className="card hover:-translate-y-2">
