@@ -7,14 +7,15 @@ const mapNames = {
     "co2":"/co2_emissions.csv",
     "n2o":"/natural_emissions.csv"
 }
-const Map = ({gas, max_year, title, setStat}) => {
+const Map = ({gas, max_year, title}) => {
     const [Emissions, setEmissions] = useState([]);
     const [allData, setAllData] = useState([]);
     const [countries, setCountries] = useState([]);
     const [year, setYear] = useState(max_year);
     const [dimensions, setDimensions] = useState({ width: 1000, height: 470 });
     const [loaded, setLoaded] = useState(false);
-    
+    const [stat, setStat] = useState({mean: 0, max: 0, highestCountry: ''});
+
     const calcStats = () => {
         if(setStat === undefined) return;
         const mean = Emissions.reduce((a, b) => a + b, 0) / Emissions.length;
@@ -107,9 +108,9 @@ const Map = ({gas, max_year, title, setStat}) => {
                             tickformat: '.0f',
                             thickness: 20,
                             len: 0.86,
-                            bgcolor: 'rgba(255,255,255,0.8)',
+                            bgcolor: 'rgba(255,255,255,0)',
                             borderwidth: 1,
-                            bordercolor: '#ccc',
+                            bordercolor: 'transparent',
                             outlinewidth: 0,
                         },
                     }
@@ -145,16 +146,25 @@ const Map = ({gas, max_year, title, setStat}) => {
                     displayModeBar: false,
                     staticPlot: false,
                 }}
+                onClick={(event) => console.log(event)}
             />}
             
-                <div className="year-selector">
-                <input type="range"
-                    min="2000"
-                    max={max_year}
-                    value={year}
-                    onChange={handleYearChange}
-                    className="w-full year-slider" />
-                <span className="year-label">{year}</span>
+                <div className="year-selector flex flex-col">
+                    <span className="stats text-black space-x-8 flex-nowrap whitespace-nowrap max-sm:space-x-2 max-sm:text-xs">
+                        <span className="stat"><b>Mean:</b> {stat ? stat.mean.toFixed(2) : 0}</span>
+                        <span className="stat"><b>Max:</b> {stat ? stat.max.toFixed(2) : 0}</span>
+                        <span className="stat"><b>Highest Country:</b> {stat ? stat.highestCountry : ''}</span>
+                    </span>
+                    <div className="flex w-full">
+                        <input type="range"
+                        min="2000"
+                        max={max_year}
+                        value={year}
+                        onChange={handleYearChange}
+                        className="w-full year-slider" />
+                        <span className="year-label">{year}</span>
+                    </div>
+                
             </div>
         </div>
         

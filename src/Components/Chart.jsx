@@ -8,7 +8,7 @@ const chartNames = {
   "ch4": "/ch4_annmean_gl.csv"
 };
 
-const Chart = ({ gas }) => {
+const Chart = ({ gas, height }) => {
   const [data, setData] = useState([]);
   const chartContainerRef = useRef(null);
   const [chartWidth, setChartWidth] = useState(0);
@@ -48,7 +48,7 @@ const Chart = ({ gas }) => {
         <Typography variant="h6" gutterBottom>
           {gas.toUpperCase()} Mean Concentration Over Years
         </Typography>
-        <Box ref={chartContainerRef} style={{ height: 340, width: "100%" }}>
+        <Box ref={chartContainerRef} style={{ height: height || 340, width: "100%" }}>
           <LineChart
             dataset={data}
             xAxis={[

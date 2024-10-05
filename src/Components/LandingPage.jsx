@@ -4,7 +4,7 @@ import { AppContext } from '../App';
 
 const LandingPage = () => {
 
-    const { level, page, setPage } = useContext(AppContext);
+    const { level, setLevel, page, setPage } = useContext(AppContext);
     useEffect(
       ()=>{
         if(page != 0) {
@@ -14,11 +14,14 @@ const LandingPage = () => {
     )
     return (
       <div className="h-full flex-grow text-white flex flex-col items-center justify-center space-y-8">
-        <h1 className="text-4xl font-bold flex"><img src="/logo.svg" className="h-11" alt="Flowbite Logo" />EarthPulse</h1>
+        <h1 className="text-4xl font-bold flex items-center"><img src="/logo.svg" className="h-11" alt="Flowbite Logo" />EarthPulse</h1>
         <p className="text-xl">Explore Earth's climate history through time</p>
         <div className="flex flex-row">
         <button
-          onClick={() => setPage(1)}
+          onClick={() => {
+            setLevel(1)
+            setPage(1)
+          }}
           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center mx-2"
         >
           Start New Journey <ChevronRight className="ml-2" />

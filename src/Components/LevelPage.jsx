@@ -11,8 +11,10 @@ const LevelPage = () => {
 
   const { levelId } = useParams();
   const level = levels[levelId];
-  //const nextLevelId = parseInt(levelId) + 1;
+
   const [expandedCardIndex, setExpandedCardIndex] = useState(null);
+  const [cardsOpened, setCardsOpened] = useState({});
+  const { setAllCardsOpened, SetRequiresCards } = useContext(AppContext);
 
   useEffect(
     () => {
@@ -23,10 +25,38 @@ const LevelPage = () => {
       else if (levelId != page) {
         setPage(levelId);
       }
+      if(level && level.cards && levelId >= lvl) {
+        SetRequiresCards(true);
+        setAllCardsOpened(false);
+      }
+      else {
+        SetRequiresCards(false);
+        setAllCardsOpened(true);
+
+        if(level && level.cards) {
+          let cOpened = {};
+          for (let i = 0; i < level.cards.length; i++) {
+            cOpened[i] = true;
+          }
+          setCardsOpened(cOpened);
+        }
+      }
     }, []
   )
 
+  useEffect(() => {
+    if(!level || !level.cards) return;
+    if (Object.keys(cardsOpened).length === level.cards.length) {
+      setAllCardsOpened(true);
+      console.log('All cards opened');
+    }
+  }, [cardsOpened]);
+
   const handleCardClick = (index) => {
+    if(!cardsOpened[index]) {
+      setCardsOpened({...cardsOpened, [index]: true});
+    }
+    
     setExpandedCardIndex(index);
   };
 
@@ -46,6 +76,7 @@ const LevelPage = () => {
               description={card.description}
               thumbnail={card.thumbnail}
               onClick={() => handleCardClick(index)}
+              isOpened={cardsOpened[index]}
               isExpanded={expandedCardIndex === index}
               onClose={handleCardClose}
             >

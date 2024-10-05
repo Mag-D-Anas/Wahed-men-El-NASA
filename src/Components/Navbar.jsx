@@ -9,6 +9,7 @@ const Navbar = () => {
     const { level, page, setPage } = useContext(AppContext);
     const navigate = useNavigate();
     console.log(page);
+    const { requiresCards, allCardsOpened } = useContext(AppContext);
 
     
     return (
@@ -22,8 +23,8 @@ const Navbar = () => {
             {
                 (page > 0 && page <= Object.keys(levels).length) && <button
                 onClick={() => {
-                    setPage(Number(level) - 1)
-                    if(Number(level) - 1 == 0) {
+                    setPage(Number(page) - 1)
+                    if(Number(page) - 1 == 0) {
                         navigate('/');
                     }
                 }}
@@ -34,10 +35,11 @@ const Navbar = () => {
             }
             {
                 (page > 0 && page < Object.keys(levels).length) && <button
-                onClick={() => setPage(Number(level) + 1)}
-                className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center"
-                >
-                Next: Level {Number(level) + 1} <ChevronRight className="ml-2" />
+                onClick={() => setPage(Number(page) + 1)}
+                className={`text-white font-bold py-2 px-4 rounded flex items-center ${allCardsOpened ? 'bg-blue-500 hover:bg-blue-600 ' : 'bg-gray-600'}`}
+                disabled={(!allCardsOpened)}>
+                {allCardsOpened && `Next: Level ${Number(page) + 1}` || '🔒 Open all cards to proceed!'}
+                {allCardsOpened && <ChevronRight className="ml-2" />}
                 </button>
             }
             
@@ -48,19 +50,7 @@ const Navbar = () => {
                     </svg>
                 </button>
             </div>
-            {
-                page != 0 && <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-                <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                <li>
-                    <a href="/" className="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Home</a>
-                </li>
-                <li>
-                    <a href="/about" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-                </li>
-                
-                </ul>
-            </div>
-            }
+            
             
             </div>
         </nav>
