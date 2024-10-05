@@ -9,7 +9,7 @@ function Question({ id, title, min, max, handleAnswer }) {
     2: "$",
     3: "$",
     4: "Km",
-    5: "Hours",
+    5: "Flights",
   };
 
   useEffect(() => {

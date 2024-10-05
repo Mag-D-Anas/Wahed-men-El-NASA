@@ -170,7 +170,7 @@ const Map = ({gas, max_year, title}) => {
                         value={year}
                         onChange={handleYearChange}
                         className="w-full year-slider" />
-                        <span className="year-label">{year}</span>
+                        <span className={`year-label ${(gas == 'co2' && year > 2022) && 'text-red-500'}`}>{year}</span>
                     </div>
                 
             </div>
