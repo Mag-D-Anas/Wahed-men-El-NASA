@@ -6,7 +6,7 @@ const MapLevel = () => {
     const [stat, setStat] = useState({mean: 0, max: 0, highestCountry: ''});
     return (
         <div>
-        <div className="grid lg:grid-cols-3 max-md:grid-rows-2 max-md:grid-cols-1 flex-wrap">
+        <div className="grid lg:grid-cols-3 max-md:grid-rows-2 max-md:grid-cols-1 max-md:flex-wrap">
             <div className="col-span-2 max-md:grid-cols-1">
                 <Map gas={'n2o'} max_year={'2020'} title={'N₂O Emissions'} setStat={setStat} />
             </div>

@@ -1,8 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import Question from "./Question";
-import { color, map } from "d3";
-import YesNo from "./YesNo";
+import Question from "../Components/Question";
+import YesNo from "../Components/YesNo";
 import "./FingerPrintPanel.css";
 
 const questions = [
@@ -140,7 +139,7 @@ function FingerPrintPanel() {
   return (
     <div className="contianer">
       <div className="header">
-        <h1>What is Your CO2 Finger Print?</h1>
+        <h2 className="text-3xl">Let's Calculate Your CO2 Finger Print!</h2>
         {showQuestion()}
       </div>
       <div className="btns">

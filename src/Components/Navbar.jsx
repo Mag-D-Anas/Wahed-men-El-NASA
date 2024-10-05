@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import './Navbar.css';
-import { ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { AppContext } from '../App';
 import { useNavigate } from 'react-router-dom';
+import levels from '../Levels/levels';
 
 const Navbar = () => {
     const { level, page, setPage } = useContext(AppContext);
@@ -19,7 +20,20 @@ const Navbar = () => {
             </a>
             <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             {
-                page > 0 && <button
+                (page > 0 && page <= Object.keys(levels).length) && <button
+                onClick={() => {
+                    setPage(Number(level) - 1)
+                    if(Number(level) - 1 == 0) {
+                        navigate('/');
+                    }
+                }}
+                className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded flex items-center mr-1"
+                >
+                <ChevronLeft />
+                </button>
+            }
+            {
+                (page > 0 && page < Object.keys(levels).length) && <button
                 onClick={() => setPage(Number(level) + 1)}
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded flex items-center"
                 >
