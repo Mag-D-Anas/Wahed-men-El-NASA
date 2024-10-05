@@ -41,19 +41,19 @@ const levels = {
                 <div className="card hover:-translate-y-2">
                   <img src="/level1/Irish_Elk.jpg" alt="Mammoth" />
                   <h2 className='font-bold'>Mammoth</h2>
-                  <p>Features Had enormous antlers, spanning up to 3.6 meters (12 feet) across.
+                  <p className="text-sm text-gray-100 leading-5">Features Had enormous antlers, spanning up to 3.6 meters (12 feet) across.
                     Habitat Roamed Europe, Asia, and North Africa.
                     Extinction Died out about 7,700 years ago, possibly due to habitat changes and hunting.</p>
                 </div>
                 <div className="card hover:-translate-y-2">
                   <img src="/level1/woolly-mammoth.jpg" alt="woolly-mammoth" />
                   <h2 className='font-bold'>Woolly-mammoth</h2>
-                  <p>Woolly mammoths were 3 to 3.7 meters tall, weighed up to 7,300 kg, and had thick fur and fat for insulation. They were herbivores, eating tundra plants.</p>
+                  <p className="text-sm text-gray-100 leading-5">Woolly mammoths were 3 to 3.7 meters tall, weighed up to 7,300 kg, and had thick fur and fat for insulation. They were herbivores, eating tundra plants.</p>
                 </div>
                 <div className="text-center card hover:-translate-y-2">
                   <img src="/level1/mastodon.jpg" alt="Mastodon" />
                   <h2 className='font-bold text-center'>Mastodon</h2 >
-                  <p>Features: Similar to woolly mammoths but with straighter tusks and different teeth adapted for browsing.
+                  <p className="text-sm text-gray-100 leading-5">Features: Similar to woolly mammoths but with straighter tusks and different teeth adapted for browsing.
                     Habitat: Inhabited forests and woodlands across North America.
                     Extinction: Extinct around 10,000 years ago, likely due to climate changes and human activity. </p>
                 </div>
