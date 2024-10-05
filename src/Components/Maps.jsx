@@ -46,17 +46,20 @@ const Map = ({gas, max_year, title, setStat}) => {
                 const data = result.data.filter(row => row.year !== null);
                 setAllData(data);
                 const uniqueCountries = [...new Set(data.flatMap(Object.keys))].filter(key => key !== 'year');
-                setCountries(uniqueCountries);
-                setEmissions(extractEmissionsByYear(data, 2020));
-                setLoaded(true);
+                setCountries(uniqueCountries);                
             },
         });
     }, []);
+    useEffect(() => {
+        setLoaded(true);
+        setEmissions(extractEmissionsByYear(allData, year));
+    }, [allData]);
     useEffect(() => {
         calcStats();
     }, [Emissions]);
 
     useEffect(() => {
+        console.log(loaded, year, Emissions);
         handleYearChange({target: {value: year}});
     }, [loaded]);
 
@@ -74,7 +77,7 @@ const Map = ({gas, max_year, title, setStat}) => {
     return (
         <>
         <div className="map-container">
-            <Plot
+            {loaded && <Plot
                 data={[
                     {
                         type: "choropleth",
@@ -142,7 +145,7 @@ const Map = ({gas, max_year, title, setStat}) => {
                     displayModeBar: false,
                     staticPlot: false,
                 }}
-            />
+            />}
             
                 <div className="year-selector">
                 <input type="range"

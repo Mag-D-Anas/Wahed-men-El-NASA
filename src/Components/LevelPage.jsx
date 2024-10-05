@@ -7,7 +7,7 @@ import "./LevelPage.css";
 import levels from '../Levels/levels';
 
 const LevelPage = () => {
-  const { page, setPage } = useContext(AppContext);
+  const { page, setPage, level: lvl } = useContext(AppContext);
 
   const { levelId } = useParams();
   const level = levels[levelId];
@@ -16,7 +16,11 @@ const LevelPage = () => {
 
   useEffect(
     () => {
-      if (levelId != page) {
+      console.log(levelId, lvl);
+      if(levelId > lvl) {
+        setPage(lvl);
+      }
+      else if (levelId != page) {
         setPage(levelId);
       }
     }, []
@@ -32,9 +36,9 @@ const LevelPage = () => {
 
   return (
     <>
-      {level.cards && <div className="h-screen text-white flex flex-col items-center justify-center space-y-8 p-4" style={{ margin: "auto" }}>
+      {(level && level.cards) && <div className="h-full text-white flex flex-col items-center justify-center space-y-8 p-4" style={{ margin: "auto" }}>
         <h2 className="text-2xl font-bold mb-8 text-center">Level {levelId}: {level.title}</h2>
-        <div className="flex justify-center items-start space-x-8 flex-wrap">
+        <div className="flex justify-center items-start flex-wrap">
           {level.cards.map((card, index) => (
             <Card
               key={index}
@@ -60,7 +64,7 @@ const LevelPage = () => {
           </div>
         )} */}
       </div>}
-      {level.component && <level.component />}
+      {(level && level.component) && <level.component />}
     </>
   );
 };

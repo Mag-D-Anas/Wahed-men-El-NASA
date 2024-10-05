@@ -20,7 +20,7 @@ const Home = () => {
     }
   }, [page]);
   return (<AppContext.Provider value={{ level, setLevel, page, setPage }}>
-    <div className="min-h-screen" id='main-app'>
+    <div className="min-h-screen flex flex-col" id='main-app'>
     <Navbar />
       <Routes>
         <Route path="/" element={<LandingPage />} />

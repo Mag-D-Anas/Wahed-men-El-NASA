@@ -2,7 +2,7 @@ import React from 'react'
 import { X } from 'lucide-react';
 
 const Card = ({ title, description, thumbnail, onClick, isExpanded, onClose, children }) => (
-    <div className={`level-card rounded-lg shadow-md overflow-hidden transition-all duration-300 ${
+    <div className={`level-card rounded-lg shadow-md overflow-hidden transition-all duration-300 m-2 ${
       isExpanded 
         ? 'fixed inset-4 z-50 flex flex-col' 
         : 'w-64 h-96 cursor-pointer hover:shadow-lg flex flex-col'

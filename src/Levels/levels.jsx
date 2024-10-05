@@ -16,7 +16,7 @@ const levels = {
               <img src="/level1/mars.gif" alt="Mars" className="mt-4"
                 style={
                   {
-                    width: "70%",
+                    width: "55%",
                     margin: "auto",
                     marginTop: "12px",
                     marginBottom: "12px",
@@ -37,19 +37,19 @@ const levels = {
             <div>
               <p className='text-center'>The Pleistocene Epoch, known as the "Ice Age," was a period of dramatic climate shifts, with glaciers advancing and retreating. It was home to iconic megafauna:</p>
               <div className="cards">
-                <div className="card">
+                <div className="card hover:-translate-y-2">
                   <img src="/level1/Irish_Elk.jpg" alt="Mammoth" />
                   <h2 className='font-bold'>Mammoth</h2>
                   <p>Features Had enormous antlers, spanning up to 3.6 meters (12 feet) across.
                     Habitat Roamed Europe, Asia, and North Africa.
                     Extinction Died out about 7,700 years ago, possibly due to habitat changes and hunting.</p>
                 </div>
-                <div className="card">
+                <div className="card hover:-translate-y-2">
                   <img src="/level1/woolly-mammoth.jpg" alt="woolly-mammoth" />
                   <h2 className='font-bold'>Woolly-mammoth</h2>
                   <p>Woolly mammoths were 3 to 3.7 meters tall, weighed up to 7,300 kg, and had thick fur and fat for insulation. They were herbivores, eating tundra plants.</p>
                 </div>
-                <div className="text-center card">
+                <div className="text-center card hover:-translate-y-2">
                   <img src="/level1/mastodon.jpg" alt="Mastodon" />
                   <h2 className='font-bold text-center'>Mastodon</h2 >
                   <p>Features: Similar to woolly mammoths but with straighter tusks and different teeth adapted for browsing.

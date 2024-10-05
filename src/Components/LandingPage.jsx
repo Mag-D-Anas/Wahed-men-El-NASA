@@ -13,8 +13,8 @@ const LandingPage = () => {
       },[]
     )
     return (
-      <div className="h-screen text-white flex flex-col items-center justify-center space-y-8">
-        <h1 className="text-4xl font-bold">💫 EarthPulse</h1>
+      <div className="h-full flex-grow text-white flex flex-col items-center justify-center space-y-8">
+        <h1 className="text-4xl font-bold flex"><img src="/logo.svg" className="h-11" alt="Flowbite Logo" />EarthPulse</h1>
         <p className="text-xl">Explore Earth's climate history through time</p>
         <div className="flex flex-row">
         <button
