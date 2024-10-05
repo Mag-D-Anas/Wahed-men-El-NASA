@@ -4,6 +4,14 @@ import { useState } from "react";
 function Question({ id, title, min, max, handleAnswer }) {
   const [val, setVal] = useState((min + max) / 2);
 
+  const labels = {
+    1: "$",
+    2: "$",
+    3: "$",
+    4: "KM",
+    5: "Hours",
+  };
+
   useEffect(() => {
     handleAnswer(id, (min + max) / 2);
   }, []);
@@ -13,7 +21,7 @@ function Question({ id, title, min, max, handleAnswer }) {
   }
 
   return (
-    <div>
+    <div className="question">
       <h2>{title}</h2>
       <input
         type="range"
@@ -22,7 +30,7 @@ function Question({ id, title, min, max, handleAnswer }) {
         value={val}
         onChange={(e) => onSlideHandler(e)}
       />
-      <h3>{val}</h3>
+      <h3>{val}  {labels[id]}</h3>
     </div>
   );
 }

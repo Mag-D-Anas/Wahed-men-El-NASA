@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import Question from "./Question";
-import { map } from "d3";
+import { color, map } from "d3";
 import YesNo from "./YesNo";
+import "./FingerPrintPanel.css";
 
 const questions = [
   { id: 1, title: "1. Electric Bill", min: 0, max: 200 },
@@ -22,7 +23,7 @@ const questions = [
 function FingerPrintPanel() {
   const [currentId, setCurrentId] = useState(1);
   const showNext = currentId < 7 ? true : false;
-  const showPrev = currentId > 1 ? true : false;
+  const [showPrev,setshowPrev] = useState(currentId > 1 ? true : false);
   const showSubmit = currentId === 7 ? true : false;
   const [answers, setAnswers] = useState([0, 0, 0, 0, 0, "No", "No"]);
   const [displayAnswer, setDisplayAnswer] = useState(false);
@@ -60,10 +61,14 @@ function FingerPrintPanel() {
   }
 
   function handleNext() {
+    setshowPrev(true);
     setCurrentId(currentId + 1);
   }
 
   function handlePrevious() {
+    if (currentId === 2) {
+      setshowPrev(false);
+    }
     setCurrentId(currentId - 1);
   }
 
@@ -91,6 +96,7 @@ function FingerPrintPanel() {
 
   function onSubmitHandler(e) {
     e.preventDefault();
+    setshowPrev(false);
     setDisplayAnswer(true);
     let result = answers[0] * 105;
     result += answers[1] * 105;
@@ -132,19 +138,19 @@ function FingerPrintPanel() {
   }
 
   return (
-    <>
-      <div>
+    <div className="contianer">
+      <div className="header">
         <h1>What is Your CO2 Finger Print?</h1>
         {showQuestion()}
       </div>
-      <div>
+      <div className="btns">
         {showPrevButton()}
         {showNextButton()}
       </div>
-      <div>{showSubmitButton()}</div>
-      {displayAnswer && <h1>Your Result is: {result}</h1>}
-      <div>{showReset()}</div>
-    </>
+      <div className="btns">{showSubmitButton()}</div>
+      {displayAnswer && <h1>Your Result is: <span style={{color: result === "low" ? 'green' : result==='average'?'yellow':'red'}}>{result}</span></h1>}
+      <div className="btns">{showReset()}</div>
+    </div>
   );
 }
 

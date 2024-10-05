@@ -7,7 +7,7 @@ import FingerPrintPanel from './Components/FingerPrintPanel.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    {/* <App /> */}
-    <FingerPrintPanel/>
+    <App />
+    {/* <FingerPrintPanel/> */}
   </StrictMode>,
 )

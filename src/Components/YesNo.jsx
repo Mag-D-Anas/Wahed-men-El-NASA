@@ -14,9 +14,10 @@ function YesNo({ id, title, handleAnswer }) {
     }, []);
 
   return (
-    <div>
+    <div className="question">
       <h2>{title}</h2>
-      <label>
+     <div className="options">
+     <label>
         <input
           type="radio"
           value="Yes"
@@ -34,7 +35,7 @@ function YesNo({ id, title, handleAnswer }) {
         />
         No
       </label>
-      <h3>{selectedOption}</h3>
+     </div>
     </div>
   );
 }

@@ -7,13 +7,21 @@ const mapNames = {
     "co2":"/co2_emissions.csv",
     "n2o":"/natural_emissions.csv"
 }
-const Map = ({gas, max_year, title}) => {
-    const [n2oEmissions, setN2oEmissions] = useState([]);
+const Map = ({gas, max_year, title, setStat}) => {
+    const [Emissions, setEmissions] = useState([]);
     const [allData, setAllData] = useState([]);
     const [countries, setCountries] = useState([]);
     const [year, setYear] = useState(max_year);
     const [dimensions, setDimensions] = useState({ width: 1000, height: 470 });
-
+    const [loaded, setLoaded] = useState(false);
+    
+    const calcStats = () => {
+        if(setStat === undefined) return;
+        const mean = Emissions.reduce((a, b) => a + b, 0) / Emissions.length;
+        const max = Math.max(...Emissions);
+        const highestCountry = countries[Emissions.indexOf(max)];
+        setStat({mean, max, highestCountry});
+    }
     useEffect(() => {
         const updateDimensions = () => {
             const containerWidth = document.querySelector('.map-container').offsetWidth;
@@ -39,10 +47,18 @@ const Map = ({gas, max_year, title}) => {
                 setAllData(data);
                 const uniqueCountries = [...new Set(data.flatMap(Object.keys))].filter(key => key !== 'year');
                 setCountries(uniqueCountries);
-                setN2oEmissions(extractEmissionsByYear(data, 2020));
+                setEmissions(extractEmissionsByYear(data, 2020));
+                setLoaded(true);
             },
         });
     }, []);
+    useEffect(() => {
+        calcStats();
+    }, [Emissions]);
+
+    useEffect(() => {
+        handleYearChange({target: {value: year}});
+    }, [loaded]);
 
     const extractEmissionsByYear = (data, year) => {
         const yearData = data.find(row => row.year === year);
@@ -52,7 +68,7 @@ const Map = ({gas, max_year, title}) => {
     const handleYearChange = (event) => {
         const selectedYear = parseInt(event.target.value);
         setYear(selectedYear);
-        setN2oEmissions(extractEmissionsByYear(allData, selectedYear));
+        setEmissions(extractEmissionsByYear(allData, selectedYear));
     };
 
     return (
@@ -64,7 +80,7 @@ const Map = ({gas, max_year, title}) => {
                         type: "choropleth",
                         locationmode: "country names",
                         locations: countries,
-                        z: n2oEmissions,
+                        z: Emissions,
                         zmax: 1100,
                         zmin: 0,
                         colorscale: [

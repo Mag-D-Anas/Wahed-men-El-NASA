@@ -7,6 +7,7 @@ import { Component } from 'lucide-react';
 import MapLevel3 from '../Levels/MapLevel3';
 import MapLevel3B from '../Levels/MapLevel3B';
 import "./LevelPage.css";
+import FingerPrintPanel from './FingerPrintPanel';
 
 const levels = {
   1: {
@@ -75,6 +76,10 @@ const levels = {
   3: {
     title: "CO2 Interactive Map",
     component: MapLevel3B
+  },
+  4:{
+    title:"Quiz",
+    component:FingerPrintPanel
   }
 };
 
