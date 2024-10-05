@@ -25,7 +25,7 @@ const Card = ({ title, description, thumbnail, onClick, isExpanded, onClose, chi
           <p className="text-sm text-white-600 flex-grow overflow-hidden">{description}</p>
         )}
         {!isExpanded && (
-          <button onClick={onClick} className={`mt-2 text-white-500 hover:text-blue-600 ${isOpened && 'bg-green-400'}`} >
+          <button onClick={onClick} className={`mt-2 text-white-500 hover:text-blue-600 ${isOpened ? 'bg-green-400' : 'bg-black'}`} >
             {isOpened ? '☑️ Opened' : 'Take a look!'}
           </button>
         )}

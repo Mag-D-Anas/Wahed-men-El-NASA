@@ -4,7 +4,7 @@ import FingerPrintPanel from '../Levels/FingerPrintPanel';
 
 const levels = {
     1: {
-      title: "Ice Age Beginnings",
+      title: "Different epochs, Same threat",
       cards: [
         {
           title: 'Why Not Mars',
